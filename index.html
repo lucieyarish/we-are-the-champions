@@ -12,10 +12,15 @@
 <body>
     <div class="container">
         <img src="assets/img/award.png" alt="Drawing of a yellow star with leaves around it">
-        <h1>We Are the Champions</h1>
-        <textarea class="input-main-text" placeholder="Write your endorsement here" autocomplete="off" spellcheck="false"></textarea>
-        <button>Publish</button>
-        <h2>- Endorsements -</h2>
+        <h1 class="text-bold-white-josefin">We Are the Champions</h1>
+        <textarea id="endorsement-message" class="input-primary" placeholder="Write your endorsement here" autocomplete="off" spellcheck="false"></textarea>
+        <div class="secondary-inputs">
+            <textarea id="endorsement-from" class="input-secondary" placeholder="From" autocomplete="off" spellcheck="false"></textarea>
+            <textarea id="endorsement-to" class="input-secondary" placeholder="To" autocomplete="off" spellcheck="false"></textarea>
+        </div>
+        <button id="publish-btn" class="text-bold-white-josefin">Publish</button>
+        <h2 class="text-bold-white-josefin">- Endorsements -</h2>
+        <ul id="endorsement-list"></ul>
     </div>
     <script src="js/index.js" type="module"></script>
 </body>

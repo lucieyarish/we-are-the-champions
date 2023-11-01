@@ -4,12 +4,19 @@ html, body {
     background: #000;
 }
 
+.text-bold-white-josefin {
+    font-family: 'Josefin Sans',  sans-serif;
+    font-weight: 700;
+    color: #FFF
+}
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 40px auto;
     max-width: 320px;
+    width: 317px;
 }
 
 img {
@@ -22,20 +29,34 @@ h1 {
     font-size: 25px;
 }
 
-h1, h2, button {
-    font-family: 'Josefin Sans',  sans-serif;
-    font-weight: 700;
-    color: #FFF
+h2 {
+    font-size: 20px;
+    margin-top: 30px;
 }
 
-.input-main-text {
-    width: 317px;
+.input-primary {
     height: 118px;
+    padding: 17px;
+}
+
+.secondary-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.input-secondary {
+    width: 50%;
+    height: 40px;
+    margin-top: 15px;
+    padding: 10px;
+    text-align: center;
+}
+
+.input-primary, .input-secondary {
     background-color: #444059;
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     color: #FFF;
-    padding: 17px;
     resize: none;
 }
 
@@ -44,13 +65,13 @@ textarea:focus {
 }
 
 textarea, button {
+    width: 100%;
     box-sizing: border-box;
     border: none;
     border-radius: 8px;
 }
 
 button {
-    width: 317px;
     height: 61px;
     margin-top: 15px;
     font-size: 22px;
@@ -63,8 +84,22 @@ button:hover {
     background: #28abf1db;
 }
 
-h2 {
-    font-size: 20px;
-    margin-top: 30px;
+ul {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    color: #000;
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 17px;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    word-wrap: break-word;
+    margin-bottom: 15px;
 }
 
