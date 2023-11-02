@@ -16,11 +16,17 @@ const endorsementListInDB = ref(database, 'endorsements');
 
 const publishBtn = document.getElementById('publish-btn');
 const endorsementMessage = document.getElementById('endorsement-message');
+const messageFrom = document.getElementById('endorsement-from');
+const messageTo = document.getElementById('endorsement-to');
 const endorsementList = document.getElementById('endorsement-list');
 
 publishBtn.addEventListener('click', function () {
-  let message = endorsementMessage.value;
-  clearInput(endorsementMessage);
+  let message = {
+    message: endorsementMessage.value,
+    from: messageFrom.value,
+    to: messageTo.value,
+  };
+  clearInputs(endorsementMessage, messageFrom, messageTo);
   push(endorsementListInDB, message);
 });
 
@@ -39,12 +45,18 @@ function clearEndorsementListEl() {
   endorsementList.innerHTML = '';
 }
 
-function clearInput(input) {
-  input.value = '';
+function clearInputs(msg, msgTo, msgFrom) {
+  msg.value = '';
+  msgTo.value = '';
+  msgFrom.value = '';
 }
 
-function addMessageToList(message) {
+function addMessageToList(endorsement) {
   let newEl = document.createElement('li');
-  newEl.textContent = message;
+  let msgTo = `<p>To ${endorsement.to}</p>`;
+  let msgFrom = `<p>From ${endorsement.from}</p>`;
+  let message = `<p>${endorsement.message}</p>`;
+
+  newEl.innerHTML = msgTo + message + msgFrom;
   endorsementList.append(newEl);
 }
