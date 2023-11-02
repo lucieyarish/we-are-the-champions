@@ -25,6 +25,8 @@ publishBtn.addEventListener('click', function () {
     message: endorsementMessage.value,
     from: messageFrom.value,
     to: messageTo.value,
+    likes: generateRandomAmountOfLikes(),
+    liked: false,
   };
   clearInputs(endorsementMessage, messageFrom, messageTo);
   push(endorsementListInDB, message);
@@ -32,6 +34,7 @@ publishBtn.addEventListener('click', function () {
 
 onValue(endorsementListInDB, function (snapshot) {
   let endorsementArr = Object.values(snapshot.val());
+  endorsementArr.reverse();
 
   clearEndorsementListEl();
 
@@ -54,9 +57,19 @@ function clearInputs(msg, msgTo, msgFrom) {
 function addMessageToList(endorsement) {
   let newEl = document.createElement('li');
   let msgTo = `<p class="bold-msg">To ${endorsement.to}</p>`;
-  let msgFrom = `<p class="bold-msg">From ${endorsement.from}</p>`;
+  let msgFromAndLikes = `
+    <p class="bold-msg">From ${endorsement.from}
+      <span class="indent-right">${endorsement.likes} 
+        <span id="heart" class="heart-emoji">💛</span>
+      </span>
+    </p>
+  `;
   let message = `<p>${endorsement.message}</p>`;
 
-  newEl.innerHTML = msgTo + message + msgFrom;
+  newEl.innerHTML = msgTo + message + msgFromAndLikes;
   endorsementList.append(newEl);
+}
+
+function generateRandomAmountOfLikes() {
+  return Math.floor(Math.random() * 99);
 }
