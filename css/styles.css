@@ -98,8 +98,13 @@ ul li {
     padding: 5px 12px;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
+    font-weight: 400;
+    font-size: 14px;
     word-wrap: break-word;
     margin-bottom: 15px;
+}
+
+.bold-msg {
+    font-weight: 700;
 }
 

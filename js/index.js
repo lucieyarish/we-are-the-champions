@@ -53,8 +53,8 @@ function clearInputs(msg, msgTo, msgFrom) {
 
 function addMessageToList(endorsement) {
   let newEl = document.createElement('li');
-  let msgTo = `<p>To ${endorsement.to}</p>`;
-  let msgFrom = `<p>From ${endorsement.from}</p>`;
+  let msgTo = `<p class="bold-msg">To ${endorsement.to}</p>`;
+  let msgFrom = `<p class="bold-msg">From ${endorsement.from}</p>`;
   let message = `<p>${endorsement.message}</p>`;
 
   newEl.innerHTML = msgTo + message + msgFrom;
