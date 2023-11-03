@@ -35,15 +35,13 @@ publishBtn.addEventListener('click', function () {
 
 onValue(endorsementListInDB, function (snapshot) {
   let endorsementArr = Object.values(snapshot.val());
-  let endorsementObj = snapshot.val();
   endorsementArr.reverse();
 
   clearEndorsementListEl();
 
-  for (let key in endorsementObj) {
-    let endorsement = endorsementObj[key];
+  endorsementArr.forEach((endorsement, key) => {
     addMessageToList(endorsement, key);
-  }
+  });
 });
 
 function clearEndorsementListEl() {
