@@ -75,7 +75,17 @@ function addMessageToList(endorsement, key) {
 
   newEl.innerHTML = msgTo + message + msgFromAndLikes;
 
-  newEl.addEventListener('click', function () {
+  toggleLikes(newEl, endorsement, key);
+
+  endorsementList.append(newEl);
+}
+
+function generateRandomAmountOfLikes() {
+  return Math.floor(Math.random() * 99);
+}
+
+function toggleLikes(element, endorsement, key) {
+  element.addEventListener('click', function () {
     let exactLocationOfItemInDB = ref(database, `endorsements/${key}`);
     endorsement.liked = !endorsement.liked;
 
@@ -87,10 +97,4 @@ function addMessageToList(endorsement, key) {
 
     set(exactLocationOfItemInDB, endorsement);
   });
-
-  endorsementList.append(newEl);
-}
-
-function generateRandomAmountOfLikes() {
-  return Math.floor(Math.random() * 99);
 }
