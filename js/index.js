@@ -4,6 +4,7 @@ import {
   ref,
   push,
   onValue,
+  set,
 } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js';
 const appSettings = {
   databaseURL:
@@ -34,13 +35,14 @@ publishBtn.addEventListener('click', function () {
 
 onValue(endorsementListInDB, function (snapshot) {
   let endorsementArr = Object.values(snapshot.val());
+  let endorsementObj = snapshot.val();
   endorsementArr.reverse();
 
   clearEndorsementListEl();
 
-  for (let i = 0; i < endorsementArr.length; i++) {
-    let currentEndorsement = endorsementArr[i];
-    addMessageToList(currentEndorsement);
+  for (let key in endorsementObj) {
+    let endorsement = endorsementObj[key];
+    addMessageToList(endorsement, key);
   }
 });
 
@@ -54,19 +56,38 @@ function clearInputs(msg, msgTo, msgFrom) {
   msgFrom.value = '';
 }
 
-function addMessageToList(endorsement) {
+function addMessageToList(endorsement, key) {
   let newEl = document.createElement('li');
   let msgTo = `<p class="bold-msg">To ${endorsement.to}</p>`;
+  let likeClicked = endorsement.liked;
+  let heartLiked = '💛';
+  let heartUnliked = '🖤';
   let msgFromAndLikes = `
     <p class="bold-msg">From ${endorsement.from}
       <span class="indent-right">${endorsement.likes} 
-        <span id="heart" class="heart-emoji">💛</span>
+          <span class="btn-like" id="like-click">${
+            likeClicked ? heartLiked : heartUnliked
+          }</span>
       </span>
     </p>
   `;
   let message = `<p>${endorsement.message}</p>`;
 
   newEl.innerHTML = msgTo + message + msgFromAndLikes;
+
+  newEl.addEventListener('click', function () {
+    let exactLocationOfItemInDB = ref(database, `endorsements/${key}`);
+    endorsement.liked = !endorsement.liked;
+
+    if (endorsement.liked) {
+      endorsement.likes += 1;
+    } else {
+      endorsement.likes -= 1;
+    }
+
+    set(exactLocationOfItemInDB, endorsement);
+  });
+
   endorsementList.append(newEl);
 }
 
