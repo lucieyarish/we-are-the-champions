@@ -2,6 +2,10 @@
 
 We Are the Champions is a simple app for giving endorsements built with HTML, CSS, JavaScript and Firebase.
 
+
+https://github.com/lucieyarish/we-are-the-champions/assets/79669599/a8c33c49-b889-4f15-bff8-65ed8a115547
+
+
 ## About the Project
 
 I built this solo project while working through [Scrimba's Frontend Developer Career Path](https://scrimba.com/learn/frontend). The design in Figma was provided by Scrimba and coded entirely by me.
