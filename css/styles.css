@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -66,12 +70,11 @@ textarea:focus {
 
 textarea, button {
     width: 100%;
-    box-sizing: border-box;
     border: none;
     border-radius: 8px;
 }
 
-button {
+.main-btn {
     height: 61px;
     margin-top: 15px;
     font-size: 22px;
@@ -79,7 +82,7 @@ button {
     background: #28A9F1;
 }
 
-button:hover {
+.main-btn:hover {
     cursor: pointer;
     background: #28abf1db;
 }
@@ -89,6 +92,8 @@ ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 ul li {
@@ -96,7 +101,6 @@ ul li {
     background-color: #FFF;
     border-radius: 8px;
     padding: 5px 17px;
-    box-sizing: border-box;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -109,7 +113,8 @@ ul li {
 }
 
 .indent-right {
-    float: right;
+    display: flex;
+    align-items: center;
 }
 
 .heart-emoji {
@@ -117,9 +122,16 @@ ul li {
     margin-left: 4px;
 }
 
-.btn-like {
-    font-size: 16px;
-    margin-left: 4px;
-    cursor: pointer;
+.row-parent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
+.btn-like {
+    font-size: 16px;
+    margin-left: 2px;
+    cursor: pointer;
+    display: inline;
+    background: none;
+}

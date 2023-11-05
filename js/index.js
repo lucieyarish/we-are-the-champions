@@ -2,6 +2,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebas
 import {
   getDatabase,
   ref,
+  get,
   push,
   onValue,
   set,
@@ -39,8 +40,7 @@ onValue(endorsementListInDB, function (snapshot) {
 
   clearEndorsementListEl();
 
-  for (let i = endorsementKeys.length - 1; i >= 0; i--) {
-    let key = endorsementKeys[i];
+  for (let key in endorsementObj) {
     let endorsement = endorsementObj[key];
     addMessageToList(endorsement, key);
   }
@@ -57,44 +57,61 @@ function clearInputs(msg, msgTo, msgFrom) {
 }
 
 function addMessageToList(endorsement, key) {
-  let newEl = document.createElement('li');
-  let msgTo = `<p class="bold-msg">To ${endorsement.to}</p>`;
   let likeClicked = endorsement.liked;
   let heartLiked = '💛';
   let heartUnliked = '🖤';
-  let msgFromAndLikes = `
-    <p class="bold-msg">From ${endorsement.from}
+
+  const html = `
+  <li id="${key}">
+    <p class="bold-msg">To ${endorsement.to}</p>
+    <p>${endorsement.message}</p>
+    <p class="bold-msg row-parent">From ${endorsement.from}
       <span class="indent-right">${endorsement.likes} 
-          <span class="btn-like" id="like-click">${
-            likeClicked ? heartLiked : heartUnliked
-          }</span>
+        <button class="btn-like" data-id="${key}">
+          ${likeClicked ? heartLiked : heartUnliked}
+        </button>
       </span>
     </p>
-  `;
-  let message = `<p>${endorsement.message}</p>`;
+  </li>
+`;
 
-  newEl.innerHTML = msgTo + message + msgFromAndLikes;
-
-  toggleLikes(newEl, endorsement, key);
-
-  endorsementList.append(newEl);
+  endorsementList.innerHTML += html;
 }
 
 function generateRandomAmountOfLikes() {
   return Math.floor(Math.random() * 99);
 }
 
-function toggleLikes(element, endorsement, key) {
-  element.addEventListener('click', function () {
-    let exactLocationOfItemInDB = ref(database, `endorsements/${key}`);
-    endorsement.liked = !endorsement.liked;
+document.addEventListener('click', function (event) {
+  if (event.target.dataset.id) {
+    const exactLocationOfItemInDB = ref(
+      database,
+      `endorsements/${event.target.dataset.id}`
+    );
 
-    if (endorsement.liked) {
-      endorsement.likes += 1;
-    } else {
-      endorsement.likes -= 1;
-    }
+    get(exactLocationOfItemInDB)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const endorsement = snapshot.val();
+          toggleLike(exactLocationOfItemInDB, endorsement);
+        } else {
+          console.log("Data doesn't exist.");
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }
+});
 
-    set(exactLocationOfItemInDB, endorsement);
-  });
+function toggleLike(exactLocationOfItemInDB, endorsement) {
+  endorsement.liked = !endorsement.liked;
+
+  if (endorsement.liked) {
+    endorsement.likes += 1;
+  } else {
+    endorsement.likes -= 1;
+  }
+
+  set(exactLocationOfItemInDB, endorsement);
 }
