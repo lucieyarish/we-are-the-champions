@@ -34,14 +34,16 @@ publishBtn.addEventListener('click', function () {
 });
 
 onValue(endorsementListInDB, function (snapshot) {
-  let endorsementArr = Object.values(snapshot.val());
-  endorsementArr.reverse();
+  let endorsementObj = snapshot.val();
+  let endorsementKeys = Object.keys(endorsementObj);
 
   clearEndorsementListEl();
 
-  endorsementArr.forEach((endorsement, key) => {
+  for (let i = endorsementKeys.length - 1; i >= 0; i--) {
+    let key = endorsementKeys[i];
+    let endorsement = endorsementObj[key];
     addMessageToList(endorsement, key);
-  });
+  }
 });
 
 function clearEndorsementListEl() {
