@@ -2,6 +2,8 @@
 
 We Are the Champions is a simple app for giving endorsements built with HTML, CSS, JavaScript and Firebase.
 
+View the finished project on [Netlify](https://we-are-the-champions-lucieyarish.netlify.app/)!
+
 
 https://github.com/lucieyarish/we-are-the-champions/assets/79669599/a8c33c49-b889-4f15-bff8-65ed8a115547
 
